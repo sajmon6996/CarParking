@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="parking.ParkingSpace" table="ParkingTest">
+		<id name="id">
+			<generator class="increment"></generator>
+		</id>
+
+		<property name="ownerName"></property>
+		<property name="carBrand"></property>
+		<property name="carModel"></property>
+		<property name="registrationNumber"></property>
+		
+	</class>
+
+</hibernate-mapping>  
