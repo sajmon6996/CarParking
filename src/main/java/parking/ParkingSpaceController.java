@@ -1,7 +1,7 @@
 package parking;
 
 import java.util.List;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ParkingSpaceController {
+	
+	private final ParkingSpaceDAO parkingSpaceService;
 
 	@Autowired
-	ParkingSpaceDAO parkingSpaceDAO;
+	ParkingSpaceController(ParkingSpaceDAO parkingSpaceDAO) {
+		this.parkingSpaceService = parkingSpaceDAO;
+	}
 
 	@RequestMapping("/add")
 	public String showform(Model model) {
@@ -24,35 +28,33 @@ public class ParkingSpaceController {
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute("parkingSpace") ParkingSpace parkingSpace) {
-		parkingSpaceDAO.saveParkingSpace(parkingSpace);
-		;
+		parkingSpaceService.saveParkingSpace(parkingSpace);
 		return "redirect:/parkinglist";
 	}
 
 	@RequestMapping("/parkinglist")
 	public String viewemp(Model model) {
-		List<ParkingSpace> parkingSpaceList = parkingSpaceDAO.getParkingSpace();
+		List<ParkingSpace> parkingSpaceList = parkingSpaceService.getParkingSpaceList();
 		model.addAttribute("parkingSpaceList", parkingSpaceList);
 		return "parkinglist";
 	}
 
 	@RequestMapping(value = "/edit/{id}")
 	public String edit(@PathVariable int id, Model model) {
-		ParkingSpace parkingSpace = parkingSpaceDAO.getParkingSpaceById(id);
+		ParkingSpace parkingSpace = parkingSpaceService.getParkingSpaceById(id);
 		model.addAttribute("command", parkingSpace);
 		return "parkingspaceedit";
 	}
 
 	@RequestMapping(value = "/editsave", method = RequestMethod.POST)
 	public String editsave(@ModelAttribute("parkingSpace") ParkingSpace parkingSpace) {
-		parkingSpaceDAO.updateParkingSpace(parkingSpace);
-		;
+		parkingSpaceService.updateParkingSpace(parkingSpace);
 		return "redirect:/parkinglist";
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable int id) {
-		parkingSpaceDAO.deleteParkingSpace(id);
+		parkingSpaceService.deleteParkingSpace(id);
 		return "redirect:/parkinglist";
 	}
 }

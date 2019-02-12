@@ -1,13 +1,13 @@
 package parking;
- 
+
 import java.util.ArrayList;
 import java.util.List;
-  
+
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 public class ParkingSpaceDAO {
 
-	HibernateTemplate template;
+	HibernateTemplate template = new HibernateTemplate();
 
 	public void setTemplate(HibernateTemplate template) {
 		this.template = template;
@@ -18,11 +18,7 @@ public class ParkingSpaceDAO {
 	}
 
 	public void updateParkingSpace(ParkingSpace parkingSpace) {
-		template.update(parkingSpace);;
-	}
-
-	public void updateParkingSpaceById(int id) {
-		template.update(template.get(ParkingSpace.class, id));
+		template.update(parkingSpace);
 	}
 
 	public void deleteParkingSpace(int id) {
@@ -31,11 +27,11 @@ public class ParkingSpaceDAO {
 
 	// TODO co tu siê wyda¿y³o???
 	public ParkingSpace getParkingSpaceById(int id) {
-		ParkingSpace parkingSpace = (ParkingSpace) template.get(ParkingSpace.class, id);
+		ParkingSpace parkingSpace = template.get(ParkingSpace.class, id);
 		return parkingSpace;
 	}
 
-	public List<ParkingSpace> getParkingSpace() {
+	public List<ParkingSpace> getParkingSpaceList() {
 		List<ParkingSpace> allParkingSpaceList = new ArrayList<ParkingSpace>();
 		allParkingSpaceList = template.loadAll(ParkingSpace.class);
 		return allParkingSpaceList;
