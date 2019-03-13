@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ParkingSpaceController {
 	
-	private final ParkingSpaceDAO parkingSpaceService;
+	private final ParkingSpaceService parkingSpaceService;
 
 	@Autowired
-	ParkingSpaceController(ParkingSpaceDAO parkingSpaceDAO) {
-		this.parkingSpaceService = parkingSpaceDAO;
+	ParkingSpaceController(ParkingSpaceService parkingSpaceService) {
+		this.parkingSpaceService = parkingSpaceService;
 	}
 
 	@RequestMapping("/add")
